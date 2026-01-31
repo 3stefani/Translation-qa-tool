@@ -1,8 +1,0 @@
-Error Text,Category,Type,Severity,Notes
-"cantidad",Terminology,Inappropriate Term,minor,"In financial contexts in Spain, "importe" is more appropriate than "cantidad"."
-"días de negocio",Accuracy,Mistranslation,major,"Direct translation from English "business days". In Spanish (Spain), the correct term is "días laborables" or "días hábiles""
-"reembolso",Terminology,Inappropriate Term,minor,"While technically correct, "devolución" is more commonly used in Spanish (Spain) for customer service contexts."
-"será acreditada",Style,Unidiomatic,minor,"Passive voice calque from English. More natural: "se abonará en su cuenta"."
-"tienes",Fluency,Inconsistency,major,"Inconsistent register. Started with formal "usted" (su) but switched to informal "tú" (tienes). Should be "tiene"."
-"Soporte al Cliente",Terminology,Inappropriate Term,minor,"In Spain, "Atención al Cliente" is the standard term, not "Soporte al Cliente"."
-"Saludos,",Style,Inappropriate Register,minor,"Too informal for this context. Better: "Reciba un cordial saludo" or "Atentamente"."
