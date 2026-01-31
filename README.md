@@ -139,12 +139,12 @@ translation-qa-tool/
 ├── index.html              # Main application
 ├── styles.css              # Styling and responsive design
 ├── script.js               # Core functionality
-├── README.md              # This file
-├── EXAMPLE.md             # Detailed usage example
-├── EXAMPLE.pdf            # Detailed usage example pdf file
-├── example-source.txt     # Sample source text
-├── example-target.txt     # Sample translation with errors
-├── video-demo-tool.mp4    # Video showing the performing of the app
+├── README.md               # This file
+├── EXAMPLE.md              # Folder with a detailed usage example and output files
+├── example-source.txt      # Sample source text
+├── example-target.txt      # Sample translation with errors
+├── img                     # Folder containing screenshots of the app
+├── video-demo-tool.mp4     # Video showing the performing of the app
 └──  LICENSE                # MIT License
 ```
 
