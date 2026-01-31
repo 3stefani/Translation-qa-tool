@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translation Error Taxonomy & Annotation Tool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>Translation Error Taxonomy & Annotation Tool</h1>
+            <p class="subtitle">Professional QA tool for translation quality assessment using MQM framework</p>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Input Section -->
+            <section class="input-section">
+                <div class="card">
+                    <h2>1. Input Translation Pair</h2>
+                    
+                    <div class="form-group">
+                        <label for="projectName">Project Name:</label>
+                        <input type="text" id="projectName" placeholder="e.g., Customer Service Email - Refund">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="sourceLang">Source Language:</label>
+                            <select id="sourceLang">
+                                <option value="en">English</option>
+                                <option value="es">Spanish</option>
+                                <option value="fr">French</option>
+                                <option value="de">German</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="targetLang">Target Language:</label>
+                            <select id="targetLang">
+                                <option value="es">Spanish (Spain)</option>
+                                <option value="en">English</option>
+                                <option value="fr">French</option>
+                                <option value="de">German</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sourceText">Source Text:</label>
+                        <textarea id="sourceText" rows="4" placeholder="Enter the original text in source language..."></textarea>
+                        <div style="margin-top: 10px;">
+                            <input type="file" id="sourceFile" accept=".txt,.md" style="display: none;">
+                            <label for="sourceFile" class="file-upload-label" style="cursor: pointer;">
+                                📁 Or upload source text file (.txt, .md)
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="targetText">Target Translation (with errors):</label>
+                        <textarea id="targetText" rows="4" placeholder="Enter the translation to analyze..."></textarea>
+                        <div style="margin-top: 10px;">
+                            <input type="file" id="targetFile" accept=".txt,.md" style="display: none;">
+                            <label for="targetFile" class="file-upload-label" style="cursor: pointer;">
+                                📁 Or upload translation file (.txt, .md)
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="btn-primary" id="loadTexts">Load Texts for Annotation</button>
+                </div>
+            </section>
+
+            <!-- Annotation Section -->
+            <section class="annotation-section" id="annotationSection" style="display: none;">
+                <div class="card">
+                    <h2>2. Annotate Errors</h2>
+                    <p class="instruction">Select text in the translation below to mark errors:</p>
+                    
+                    <div class="text-display-wrapper">
+                        <div class="text-display">
+                            <h3>Source Text:</h3>
+                            <div class="text-content" id="displaySourceText"></div>
+                        </div>
+                        
+                        <div class="text-display">
+                            <h3>Translation (select text to annotate):</h3>
+                            <div class="text-content selectable" id="displayTargetText"></div>
+                        </div>
+                    </div>
+
+                    <!-- Error List -->
+                    <div class="error-list">
+                        <h3>Annotated Errors (<span id="errorCount">0</span>)</h3>
+                        <div id="errorListContainer"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Statistics Section -->
+            <section class="stats-section" id="statsSection" style="display: none;">
+                <div class="card">
+                    <h2>3. Quality Metrics</h2>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Total Errors</h3>
+                            <div class="stat-value" id="totalErrors">0</div>
+                        </div>
+                        <div class="stat-card critical">
+                            <h3>Critical</h3>
+                            <div class="stat-value" id="criticalErrors">0</div>
+                        </div>
+                        <div class="stat-card major">
+                            <h3>Major</h3>
+                            <div class="stat-value" id="majorErrors">0</div>
+                        </div>
+                        <div class="stat-card minor">
+                            <h3>Minor</h3>
+                            <div class="stat-value" id="minorErrors">0</div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3>Error Distribution by Category</h3>
+                        <canvas id="errorChart"></canvas>
+                    </div>
+
+                    <div class="export-section">
+                        <button class="btn-secondary" id="exportJSON">Export Report (JSON)</button>
+                        <button class="btn-secondary" id="exportCSV">Export Errors (CSV)</button>
+                        <button class="btn-danger" id="clearAll">Clear All & Start New</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>Created by Estefanía Ramírez | Translation QA Specialist | Data stored locally in your browser</p>
+        </footer>
+    </div>
+
+    <!-- Error Annotation Modal -->
+    <div class="modal" id="errorModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Annotate Error</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p><strong>Selected text:</strong> <span id="selectedText"></span></p>
+                
+                <div class="form-group">
+                    <label for="errorCategory">Error Category:</label>
+                    <select id="errorCategory">
+                        <option value="">-- Select Category --</option>
+                        <option value="accuracy">Accuracy</option>
+                        <option value="fluency">Fluency</option>
+                        <option value="style">Style</option>
+                        <option value="terminology">Terminology</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="errorType">Error Type:</label>
+                    <select id="errorType" disabled>
+                        <option value="">-- Select Category First --</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="errorSeverity">Severity:</label>
+                    <select id="errorSeverity">
+                        <option value="">-- Select Severity --</option>
+                        <option value="critical">Critical</option>
+                        <option value="major">Major</option>
+                        <option value="minor">Minor</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="errorNote">Notes / Correction:</label>
+                    <textarea id="errorNote" rows="3" placeholder="Describe the error and/or provide the correct translation..."></textarea>
+                </div>
+
+                <button class="btn-primary" id="saveError">Save Error</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
