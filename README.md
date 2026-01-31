@@ -10,7 +10,6 @@ A professional web-based tool for translation quality assessment using the MQM (
 
 **Try it now:** [https://3stefani.github.io/Translation-qa-tool/](https://3stefani.github.io/Translation-qa-tool/)
 
-*(Replace YOUR-USERNAME with your GitHub username after deployment)*
 
 ## ✨ Features
 
