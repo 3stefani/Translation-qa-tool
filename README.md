@@ -63,7 +63,7 @@ A professional web-based tool for translation quality assessment using the MQM (
 ## 🚀 Quick Start
 
 ### Option 1: Use Online (Recommended)
-Visit the [live demo](https://YOUR-USERNAME.github.io/translation-qa-tool/) - no installation needed!
+Visit the [live demo](https://3stefani.github.io/Translation-qa-tool/) - no installation needed!
 
 ### Option 2: Run Locally
 1. Download the repository or clone it:
